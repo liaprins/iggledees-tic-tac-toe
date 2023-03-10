@@ -23,17 +23,17 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move === currentMove) {
-      description = "You are at move #" + move + " (col, row)";
+      description = "You are at move #" + move;
       return (
         <li key={move}>
-          <span className="move-text">{description + squares}</span>
+          <span className="move-text">{description}</span>
         </li>
       );
     } else {
       if (move === 0) {
         description = "Go to game start";
       } else {
-        description = "Go to move #" + move + " (col, row)";
+        description = "Go to move #" + move;
       }
       return (
         <li key={move}>
