@@ -1,6 +1,6 @@
 import * as React from "react"; // import everything
 import Square from "./Square.js"; // import Square component
-import calculateWinner from "./helper.js"; // import calculateWinner function
+import { calculateWinner } from "./helper.js"; // import calculateWinner function
 
 export default function Row({squares, handleClick, rowIndex, gridDimensions}) {
     return (
