@@ -78,6 +78,8 @@ function Board({ playerOneNext, squares, onPlay, currentMove }) {
         [...Array(gridDimensions)].map((rowEl, rowIndex) => {
           return <Row squares={squares} handleClick={handleClick} rowIndex={rowIndex} key={rowIndex} gridDimensions={gridDimensions} />;
         }) // close .map
+
+        // rowCreator();
       }
     </Fragment>
   );
@@ -100,11 +102,18 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
+  // FUNCTION TO CAPTURE rowIndex
+  // function rowCreator() {
+  //   [...Array(gridDimensions)].map((rowEl, rowIndex) => {
+  //     return <Row squares={squares} handleClick={handleClick} rowIndex={rowIndex} key={rowIndex} gridDimensions={gridDimensions} />;
+  //   });
+  // }
+
   // build buttons tracking each move
   const moves = history.map((squares, move) => {
     let description;
     if (move === currentMove) {
-      description = "You are at move #" + move;
+      description = "You are at move #" + move + " (col, row)";
       return (
         <li key={move}>
           <span className="move-text">{description}</span>
@@ -114,7 +123,7 @@ export default function Game() {
       if (move === 0) {
         description = "Go to game start";
       } else {
-        description = "Go to move #" + move;
+        description = "Go to move #" + move + " (col, row)";
       }
       return (
         <li key={move}>
