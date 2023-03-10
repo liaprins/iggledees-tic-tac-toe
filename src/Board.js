@@ -1,7 +1,11 @@
 import * as React from "react"; // import everything
 import { Fragment } from "react"; // name these imports
 import Row from "./Row.js"; // import Row component
+<<<<<<< HEAD
 import { calculateWinner } from "./helper.js"; // import calculateWinner function
+=======
+import calculateWinner from "./helper.js"; // import calculateWinner function
+>>>>>>> 2e15599 (Distinct file per component)
 
 export default function Board({ playerOneNext, squares, onPlay, currentMove }) {
   
