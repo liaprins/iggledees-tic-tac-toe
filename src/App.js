@@ -1,6 +1,7 @@
 import * as React from "react"; // import everything
 import { useState } from "react"; // name these imports
 import Board from "./Board.js";
+import { calculateColRow } from "./helper.js";
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
@@ -19,28 +20,25 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  // build buttons tracking each move
+  // list tracking each move
   const moves = history.map((squares, move) => {
-    let description;
-    if (move === currentMove) {
-      description = "You are at move #" + move;
-      return (
-        <li key={move}>
-          <span className="move-text">{description}</span>
-        </li>
-      );
+    
+    let descriptionEnd;
+    if (move === 0) {
+      descriptionEnd = "game start";
     } else {
-      if (move === 0) {
-        description = "Go to game start";
-      } else {
-        description = "Go to move #" + move;
-      }
-      return (
-        <li key={move}>
-          <button onClick={() => jumpTo(move)}>{description}</button>
-        </li>
-      );
+      descriptionEnd = `move #${move} ${calculateColRow(move, history[move], history[move - 1])}`;
     }
+
+    let listItem;
+    if (move === currentMove) {
+      listItem = <span className="move-text">{"You are at " + descriptionEnd}</span>;
+    } else {
+      listItem = <button onClick={() => jumpTo(move)}>{"Go to " + descriptionEnd}</button>;
+    }
+    return (
+      <li key={move}>{listItem}</li>
+    );
   });
 
   // allow user to reverse the sort-order of the moves-list
