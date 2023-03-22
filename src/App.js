@@ -21,40 +21,47 @@ export default function Game() {
   }
 
   // list tracking each move
-  const moves = history.map((squares, move) => {
-    
-    let descriptionEnd;
-    if (move === 0) {
-      descriptionEnd = "game start";
-    } else {
-      descriptionEnd = `move #${move} ${calculateColRow(move, history[move], history[move - 1])}`;
-    }
+  const moves = history.map((_, move) => {
+    const descriptionEnd =
+      move === 0
+        ? "game start"
+        : `move #${move} ${calculateColRow(
+            move,
+            history[move],
+            history[move - 1]
+          )}`;
 
-    let listItem;
-    if (move === currentMove) {
-      listItem = <span className="move-text">{"You are at " + descriptionEnd}</span>;
-    } else {
-      listItem = <button onClick={() => jumpTo(move)}>{"Go to " + descriptionEnd}</button>;
-    }
-    return (
-      <li key={move}>{listItem}</li>
-    );
+    const listItem =
+      move === currentMove ? (
+        <span className="move-text">{"You are at " + descriptionEnd}</span>
+      ) : (
+        <button onClick={() => jumpTo(move)}>
+          {"Go to " + descriptionEnd}
+        </button>
+      );
+
+    return <li key={move}>{listItem}</li>;
   });
 
   // allow user to reverse the sort-order of the moves-list
-  let displayMoves;
-  defaultSort ? displayMoves = [...moves] : displayMoves = [...moves].reverse();
-  function reverseSort() {  
-    setDefaultSort(!defaultSort);
+  const displayMoves = defaultSort ? moves : moves.reverse();
+
+  function handleClick() {
+    setDefaultSort((defaultSort) => !defaultSort);
   }
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board playerOneNext={playerOneNext} squares={currentSquares} onPlay={handlePlay} currentMove={currentMove} /> 
+        <Board
+          playerOneNext={playerOneNext}
+          squares={currentSquares}
+          onPlay={handlePlay}
+          currentMove={currentMove}
+        />
       </div>
       <div className="game-info">
-        <button onClick={reverseSort} >Reverse the sort-order:</button>
+        <button onClick={handleClick}>Reverse the sort-order:</button>
         <ul>{displayMoves}</ul>
       </div>
     </div>
